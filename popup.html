@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canlı Borsa Takip</title>
+    <link rel="stylesheet" href="popup.css" />
+    <script src="popup.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="text/javascript"
+      src="https://s3.tradingview.com/tv.js"
+    ></script>
+  </head>
+
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brandIcon">📈</div>
+          <div class="brandText">Canlı Borsa Takip</div>
+        </div>
+
+        <div class="topbarActions">
+          <button
+            id="refreshBtn"
+            class="btn btnGhost"
+            type="button"
+            title="Yenile"
+          >
+            <span class="ico">⟳</span>
+            <span class="hideSm">Yenile</span>
+          </button>
+
+          <button id="themeToggle" class="iconBtn" type="button" title="Tema">
+            🌙
+          </button>
+        </div>
+      </header>
+
+      <section class="searchBar">
+        <div class="searchWrap">
+          <span class="searchIcon">🔎</span>
+          <input
+            id="searchInput"
+            class="searchInput"
+            type="text"
+            placeholder="Hisse kodu veya adı (Örn: ALTINS1)"
+          />
+          <button id="searchBtn" class="btn btnPrimary" type="button">
+            Ara
+          </button>
+        </div>
+      </section>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="search" type="button">
+          Arama Sonuçları
+        </button>
+        <button class="tab" data-tab="favorites" type="button">
+          Favorilerim
+        </button>
+        <button class="tab" data-tab="graph" type="button">Grafik</button>
+      </nav>
+
+      <main class="content">
+        <section class="tab-content active" id="searchTab">
+          <div id="searchResults" class="results">
+            <div class="emptyState">
+              <div class="emptyIcon">🔍</div>
+              <div class="emptyTitle">Arama yap</div>
+              <div class="emptyDesc">
+                Kod veya isim ile arayıp favoriye ekleyebilirsin.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-content" id="favoritesTab">
+          <div class="panelHeader">
+            <div>
+              <div class="panelTitle">Favori Hisseler</div>
+              <div class="panelSub">
+                Takip listenizdeki hisselerin anlık durumları
+              </div>
+            </div>
+
+            <div class="panelActions">
+              <button
+                id="refreshAllBtn"
+                class="btn btnOutline"
+                type="button"
+                title="Tümünü Yenile"
+              >
+                <span class="ico">⟲</span>
+                <span class="hideSm">Tümünü Yenile</span>
+              </button>
+
+              <button
+                id="autoRefreshToggle"
+                class="btn btnSuccess"
+                type="button"
+                title="Otomatik Yenile"
+              >
+                Otomatik: AÇIK
+              </button>
+
+              <button
+                id="clearAllBtn"
+                class="iconBtn danger"
+                type="button"
+                title="Tüm Favorileri Temizle"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          <div class="listWrap">
+            <div id="favoritesList" class="favList">
+              <div class="emptyState compact">
+                <div class="emptyIcon">⭐</div>
+                <div class="emptyTitle">Henüz favori yok</div>
+                <div class="emptyDesc">
+                  Arama sekmesinden yıldız ile favorilere ekle.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panelFooter">
+            <div class="footerItem">
+              <span class="muted">Toplam Favori:</span>
+              <span id="totalFavorites" class="badge">0</span>
+            </div>
+            <div class="footerItem">
+              <span class="dot"></span>
+              <span class="muted">Son Güncelleme:</span>
+              <span id="lastUpdateTime" class="mono">--:--:--</span>
+            </div>
+          </div>
+
+          <div class="disclaimer">
+            Veriler gecikmeli olabilir. Yatırım tavsiyesi değildir.
+          </div>
+        </section>
+
+        <section class="tab-content" id="graphTab">
+          <div class="graphHeader">
+            <select id="stockSelect" class="select">
+              <option value="">Hisse seçin</option>
+            </select>
+            <select id="timeframe" class="select">
+              <option value="1D">1 Gün</option>
+              <option value="1W">1 Hafta</option>
+              <option value="1M">1 Ay</option>
+              <option value="3M">3 Ay</option>
+              <option value="6M">6 Ay</option>
+              <option value="12M">1 Yıl</option>
+            </select>
+          </div>
+
+          <div id="tradingview_chart" class="chart"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
