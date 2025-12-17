@@ -478,23 +478,10 @@ class BorsaTakip {
 
     // ✅ Anlık fiyat
     const current = getText('span[dt="amount"][itemprop="price"]');
-
-    // ✅ Değişim (tutar + yüzde)
-    const changeAmount = getText('span[dt="changeAmount"]');
     const changePercent = getText('span[dt="change"]');
 
     let changeArrow = "→";
     let changeClass = "changeNeu";
-    const num = parseFloat(String(changeAmount).replace(",", "."));
-    if (!isNaN(num)) {
-      if (num > 0) {
-        changeArrow = "↗";
-        changeClass = "changePos";
-      } else if (num < 0) {
-        changeArrow = "↘";
-        changeClass = "changeNeg";
-      }
-    }
 
     const findValueByLabel = (label) => {
       const nodes = Array.from(doc.querySelectorAll("span,div"));
@@ -518,7 +505,7 @@ class BorsaTakip {
 
     return {
       current,
-      change: `${changeAmount} (${changePercent})`,
+      change: `${changePercent}`,
       changeArrow,
       changeClass,
       high,
